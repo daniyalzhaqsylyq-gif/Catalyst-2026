@@ -5,17 +5,89 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Резервирование ЧРП · Catalyst 2026</title>
-<style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@400;500;600&display=swap" rel="stylesheet"><style>
 :root{--red:#c61e1e;--brown:#85371d;--blue:#1f5fa8;--orange:#e07b00;--purple:#7b3fa0;--green:#2e9e4f;--ink:#272622;--muted:#77756e;--border:#e5e3dd;--bg:#f5f4f0}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px 'Segoe UI',Arial,sans-serif}button,input,select{font:inherit}button,select{cursor:pointer}button{border:1px solid var(--border);background:white;color:var(--ink);border-radius:6px;padding:9px 12px;transition:background .15s}button:hover{background:#f1eee8;border-color:#b7afa2}button:focus-visible,select:focus-visible,input:focus-visible,[role=button]:focus-visible{outline:3px solid #77b7ee;outline-offset:2px}button:disabled{opacity:.45;cursor:default}.primary{background:var(--brown);color:white;border-color:var(--brown)}.primary:hover{background:#692b17}.danger{color:var(--red);border-color:#efd0cc}.eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
 header{height:86px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:20px}h1{font-size:23px;font-weight:650;letter-spacing:-.5px;margin:5px 0}header .brand{border-left:1px solid var(--border);padding-left:24px;text-align:right}.brand strong{font-size:22px;color:var(--red);letter-spacing:1px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.statusbar{display:flex;align-items:center;gap:25px;padding:13px 28px;background:#fff;border-bottom:1px solid var(--border);min-height:53px}.statusbar .mode{flex:1;font-weight:600}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px}.counter{white-space:nowrap;color:var(--muted);font-size:12px}.counter b{font-size:20px;color:var(--blue);margin-left:9px}.counter.orange b{color:var(--orange)}.counter.purple b{color:var(--purple)}
 main{display:grid;grid-template-columns:245px minmax(620px,1fr) 265px;gap:16px;padding:20px 24px}.panel{background:white;border:1px solid var(--border);border-radius:9px;overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;padding:15px 17px;border-bottom:1px solid var(--border);gap:10px}.panel-head h2{font-size:14px;color:var(--brown);margin:0;font-weight:700}.panel-head span{font-size:11px;color:var(--muted)}.sidebar{display:flex;flex-direction:column;gap:14px}.scenario-list{padding:8px}.scenario{display:flex;align-items:center;text-align:left;gap:12px;width:100%;border:0;padding:12px 9px;margin:2px 0}.scenario .num{font:12px Consolas,monospace;color:#a39b90}.scenario strong{font-weight:600;font-size:12px;display:block}.scenario small{font-size:11px;display:block;color:var(--muted);margin-top:4px}.scenario.active{background:#f9ede8;color:var(--brown);box-shadow:inset 3px 0 var(--brown)}.execution{padding:14px}.segmented{display:flex;background:var(--bg);padding:3px;border-radius:6px;margin-bottom:15px}.segmented button{flex:1;border:0;background:transparent;padding:7px;font-size:12px}.segmented button.active{background:white;box-shadow:0 1px 4px #0001;color:var(--brown);font-weight:650}.range-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}input[type=range]{width:100%;accent-color:var(--brown);margin:10px 0}.execution .controls{display:flex;gap:6px}.execution .controls button{font-size:12px;flex:1;padding:8px}.notice{font-size:11px;color:var(--muted);line-height:1.6;padding:12px 2px}.diagram-wrap{padding:5px 12px 0}.diagram-wrap svg{display:block;width:100%;height:auto;min-height:330px;font-family:'Segoe UI',Arial,sans-serif;font-size:12px}.diagram-wrap [role=button]{cursor:pointer}.diagram-wrap [role=button]:hover .hit{fill:#85371d12}.hit{fill:transparent}.legend{display:flex;gap:15px;flex-wrap:wrap;padding:13px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--muted)}.legend span{display:flex;gap:6px;align-items:center}.legend i{width:17px;height:3px;background:var(--c)}.legend .square{width:10px;height:10px;background:var(--green);border-radius:2px}.legend .open{background:white;border:1px solid #8a8a8a}.drive-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.drive{padding:15px;border-top:3px solid var(--orange)}.drive.second{border-top-color:var(--purple)}.drive-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:650}.badge{font-size:10px;font-weight:600;color:var(--muted);background:var(--bg);padding:4px 7px;border-radius:4px}.drive .buttons{display:flex;gap:5px;flex-wrap:wrap}.drive button{font-size:11px;padding:7px 8px}.frequency{display:flex;align-items:center;gap:8px;margin:12px 0 6px;font-size:11px;color:var(--muted)}.frequency input{min-width:20px;flex:1}.frequency output{width:43px;text-align:right;color:var(--ink)}.sync{display:flex;align-items:center;gap:6px;margin:9px 0;font-size:11px;color:var(--muted)}.sync input{accent-color:var(--green)}.steps{margin-top:14px}.step-list{position:relative;max-height:198px;overflow:auto;padding:8px 15px;margin:0;list-style:none;counter-reset:steps}.step-list li{counter-increment:steps;font-size:12px;padding:9px 8px;display:flex;gap:10px;border-radius:4px;color:var(--muted)}.step-list li:before{content:counter(steps,decimal-leading-zero);font:11px Consolas,monospace;color:#a49c92}.step-list li.current{background:#f9ede8;color:var(--brown);font-weight:600}.step-list li.done:before{content:'✓';color:var(--green)}.empty{font-size:12px;line-height:1.7;color:var(--muted);padding:20px 17px}.log{height:610px;overflow:auto;padding:6px 15px}.event{padding:11px 0;border-bottom:1px solid #efeee9;font-size:12px;line-height:1.6;overflow-wrap:anywhere}.event time{font:10px Consolas,monospace;color:#9a958a;display:block}.event.error{color:var(--red)}.event.warn{color:#9a6214}.interlocks{padding:12px 16px;display:flex;gap:6px;border-top:1px solid var(--border)}.interlocks span{font-size:10px;color:var(--green);background:#edf7ef;padding:4px 7px;border-radius:4px}.recovery{margin-top:14px;border-color:#eac6c0;padding:14px;line-height:1.6;font-size:12px}.recovery strong{color:var(--red)}.recovery button{margin-top:9px;width:100%}footer{padding:0 26px 18px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);max-width:700px;background:#fff8f7;border:1px solid #e3b5ae;border-left:4px solid var(--red);padding:15px 24px;box-shadow:0 8px 30px #0002;border-radius:6px;z-index:5;color:var(--red)}[hidden]{display:none!important}.blink rect:not(.hit){animation:reject .3s 3}@keyframes reject{50%{fill:#f7aaaa;stroke:var(--red)}}
 @media(min-width:1700px){main{grid-template-columns:280px minmax(700px,1fr) 310px;gap:22px;padding:24px 28px}.log{height:780px}.scenario{padding:15px 10px}.scenario strong{font-size:14px}.step-list{max-height:230px}.diagram-wrap{padding:15px 22px 0}}
 @media(max-width:1200px){main{grid-template-columns:220px minmax(550px,1fr);padding:14px;gap:12px}.right{grid-column:1/-1}.log{height:180px;display:grid;grid-template-columns:repeat(3,1fr);gap:0 20px}.statusbar{gap:16px;padding:12px 18px}.counter b{font-size:17px}}@media(max-width:800px){header{padding:16px;height:auto}h1{font-size:18px}.brand{display:none}.statusbar{flex-wrap:wrap;gap:10px}.statusbar .mode{flex-basis:100%}main{display:flex;flex-direction:column}.scenario-list{display:grid;grid-template-columns:1fr 1fr}.diagram-wrap{overflow-x:auto}.diagram-wrap svg{min-width:650px}.drive-controls{grid-template-columns:1fr}.log{display:block}.step-list{max-height:220px}footer{flex-direction:column;gap:5px}}
+
+/* ===== Industrial HMI theme (ISA-101 inspired) ===== */
+:root{--hmi-bg:#b9bec3;--hmi-panel:#dfe2e5;--hmi-panel2:#eceef0;--hmi-line:#7f878e;--hmi-head:#2b343c;--hmi-ink:#151a1e;--hmi-muted:#4c555c;--brown:#2b343c;--red:#c61e1e}
+body{background:var(--hmi-bg);color:var(--hmi-ink);font:13px 'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif}
+button{border:1px solid #6d757c;border-radius:1px;background:linear-gradient(#f3f4f5,#d3d7da);color:var(--hmi-ink);padding:7px 10px;box-shadow:inset 0 1px 0 #fff;font-weight:500}
+button:hover{background:linear-gradient(#fbfbfc,#dde0e3);border-color:#3e464d}
+button:active{background:#c7cbcf;box-shadow:inset 0 1px 2px #0005}
+.primary{background:linear-gradient(#45515b,#2b343c);color:#fff;border-color:#1b2127;box-shadow:inset 0 1px 0 #ffffff22}.primary:hover{background:#1f272e}
+.danger{color:#fff;background:linear-gradient(#d23a3a,#a81717);border-color:#7d1010;font-weight:600;letter-spacing:.3px}.danger:hover{background:#9c1414}
+header{height:auto;background:var(--hmi-head);color:#e8ecef;border-bottom:3px solid var(--red);padding:9px 18px}
+header .eyebrow{color:#9aa6b0;letter-spacing:1px;font:500 11px 'IBM Plex Mono',Consolas,monospace}
+h1{font-size:19px;font-weight:600;letter-spacing:0;margin:2px 0 0;text-transform:uppercase}
+header .brand{border-left:1px solid #4a555e;text-align:right}.brand strong{color:#fff;font:600 17px 'IBM Plex Mono',Consolas,monospace;letter-spacing:0}.brand small{color:#9aa6b0;font:11px 'IBM Plex Mono',Consolas,monospace}
+#clock{display:block;color:#7fe08a;font:600 15px 'IBM Plex Mono',Consolas,monospace;margin-top:2px}
+.statusbar{background:#cfd3d7;border-bottom:1px solid var(--hmi-line);padding:6px 18px;min-height:0;gap:10px}
+.statusbar .mode{font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.3px}
+.dot{width:10px;height:10px;border-radius:0;border:1px solid #0006}
+.counter{background:#1b2126;color:#9aa6b0;font:11px 'IBM Plex Mono',Consolas,monospace;padding:4px 10px;border:1px solid #000;text-transform:uppercase}
+.counter b{font:600 17px 'IBM Plex Mono',Consolas,monospace;color:#6db3ff;margin-left:8px}.counter.orange b{color:#ffad42}.counter.purple b{color:#c99bf0}.counter:last-child b{color:#d6dadd}
+main{gap:8px;padding:8px 10px;grid-template-columns:230px minmax(620px,1fr) 290px}
+.panel{background:var(--hmi-panel);border:1px solid var(--hmi-line);border-radius:0;box-shadow:none}
+.panel-head{background:#4a555e;padding:6px 10px;border-bottom:1px solid #2b343c}
+.panel-head h2{color:#fff;font-size:12px;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+.panel-head span{color:#c9d0d6;font:11px 'IBM Plex Mono',Consolas,monospace}
+.panel-head button{background:#e6e8ea;padding:2px 7px!important}
+.sidebar{gap:8px}
+.scenario-list{padding:4px;display:grid;gap:3px}
+.scenario{margin:0;padding:6px 7px;border:1px solid #9aa1a7;background:linear-gradient(#f3f4f5,#d9dcdf);border-radius:1px;gap:8px}
+.scenario .num{font:600 11px 'IBM Plex Mono',Consolas,monospace;color:#fff;background:#4a555e;padding:2px 4px;min-width:22px;text-align:center}
+.scenario strong{font-size:13px;font-weight:600}.scenario small{font-size:11px;margin-top:1px;color:var(--hmi-muted)}
+.scenario.active{background:#ffe9a8;border-color:#a07a00;color:var(--hmi-ink);box-shadow:inset 4px 0 #a07a00}
+.scenario.active .num{background:#a07a00}
+.execution{padding:8px}
+.segmented{background:#9aa1a7;padding:1px;border-radius:0;gap:1px;margin-bottom:8px}
+.segmented button{border-radius:0;background:#d3d7da;border:0;box-shadow:none;padding:6px}
+.segmented button.active{background:var(--hmi-head);color:#fff;box-shadow:none}
+.range-label{font:11px 'IBM Plex Mono',Consolas,monospace;color:var(--hmi-muted)}
+input[type=range]{accent-color:#2b343c}
+.notice{color:var(--hmi-muted);padding:4px 2px;font-size:11px}
+.diagram-wrap{background:#e9ebed;border-bottom:1px solid var(--hmi-line);padding:6px 10px 0}
+.diagram-wrap svg{font-family:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif}
+.diagram-wrap [role=button]:hover .hit{fill:#00000014;stroke:#2b343c;stroke-dasharray:3 2}
+.legend{background:var(--hmi-panel);border-top:0;padding:6px 12px;font-size:11px;color:var(--hmi-muted)}
+.legend .square{border-radius:0}
+.drive-controls{gap:8px;margin-top:8px}
+.drive{padding:0;border-top:0}.drive.second{border-top:0}
+.drive-title{background:#4a555e;color:#fff;margin:0;padding:6px 10px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;border-left:6px solid var(--orange)}
+.drive.second .drive-title{border-left-color:var(--purple)}
+.drive>*:not(.drive-title){margin-left:10px;margin-right:10px}
+.drive .buttons{margin-top:8px}
+.drive:last-child,.drive{padding-bottom:8px}
+.badge{border-radius:0;background:#1b2126;color:#d6dadd;font:600 10px 'IBM Plex Mono',Consolas,monospace}
+.frequency{color:var(--hmi-muted)}.frequency output{font:600 13px 'IBM Plex Mono',Consolas,monospace;background:#1b2126;color:#ffad42;padding:2px 5px;width:58px}
+.steps{margin-top:8px}
+.step-list{padding:4px 8px}
+.step-list li{border-radius:0;padding:5px 6px;color:var(--hmi-muted);border-bottom:1px solid #c9cdd1}
+.step-list li:before{font:11px 'IBM Plex Mono',Consolas,monospace;color:#6a737a}
+.step-list li.current{background:#ffe9a8;color:var(--hmi-ink);box-shadow:inset 4px 0 #a07a00}
+.step-list li.done{color:var(--hmi-ink)}.step-list li.done:before{color:#1f7a3a}
+.empty{color:var(--hmi-muted)}
+.log{padding:0;background:#f4f5f6}
+.event{display:grid;grid-template-columns:62px 1fr;gap:6px;padding:4px 8px;border-bottom:1px solid #d5d9dc;font-size:12px;line-height:1.35}
+.event:nth-child(even){background:#eceef0}
+.event time{font:11px 'IBM Plex Mono',Consolas,monospace;color:#5b646b;display:inline}
+.event.error{background:#f6d4d4;color:#8b0f0f;box-shadow:inset 4px 0 var(--red)}
+.event.warn{background:#fff1c2;color:#6b4c00;box-shadow:inset 4px 0 #c99400}
+.interlocks{background:var(--hmi-panel);padding:6px 8px;border-top:1px solid var(--hmi-line)}
+.interlocks span{border-radius:0;background:#1b2126;color:#7fe08a;font:600 11px 'IBM Plex Mono',Consolas,monospace;padding:3px 6px}
+.recovery{border-color:var(--red);background:#fbe3e3;box-shadow:inset 0 3px var(--red)}
+footer{color:#3d454b;font:11px 'IBM Plex Mono',Consolas,monospace;padding:0 12px 10px}
+.toast{border-radius:0;background:#a81717;color:#fff;border:1px solid #5e0a0a;border-left:8px solid #ffd23f;font-weight:600;box-shadow:0 4px 0 #0003;top:84px;bottom:auto}
+@media(min-width:1700px){main{grid-template-columns:270px minmax(700px,1fr) 330px;gap:10px;padding:10px 12px}.scenario{padding:8px}}
 </style>
 </head>
 <body>
-<header><div><div class="eyebrow">Catalyst 2026 / Кейс ABB</div><h1>Резервирование частотных приводов</h1></div><div class="brand"><strong>HMI / 24</strong><small>2 ЧРП · 8 двигателей · 24 контактора</small></div></header>
+<header><div><div class="eyebrow">HMI-01 · ПС 6 кВ · ГРУППЫ ДВИГАТЕЛЕЙ A/B · CATALYST 2026 / ABB</div><h1>Резервирование частотных приводов</h1></div><div class="brand"><strong>HMI / 24</strong><small>2 ЧРП · 8 двигателей · 24 контактора</small><span id="clock">--:--:--</span></div></header>
 <div class="statusbar"><div class="mode"><span class="dot" id="statusDot"></span>Режим: <span id="modeText">Ручное управление</span></div><div class="counter">На сети <b id="countMains">0</b></div><div class="counter orange">На ЧРП 1 <b id="count1">0</b></div><div class="counter purple">На ЧРП 2 <b id="count2">0</b></div><div class="counter">Отключено <b id="countOff">8</b></div></div>
 <main>
 <aside class="sidebar"><section class="panel"><div class="panel-head"><h2>Сценарии переключений</h2><span>01—07</span></div><div class="scenario-list" id="scenarios"></div><div class="execution"><div class="segmented"><button id="autoMode" class="active">Авто</button><button id="stepMode">По шагам</button></div><div class="range-label"><span>Интервал шагов</span><span id="delayLabel">2000 мс</span></div><input id="delay" aria-label="Интервал шагов" type="range" min="150" max="4000" step="50" value="2000"><div class="controls"><button class="primary" id="next">Следующий шаг</button><button id="pause">Пауза</button></div></div></section><section class="panel"><div class="panel-head"><h2>Ввод аварии</h2><span>доступен всегда</span></div><div class="execution" style="display:grid;gap:8px"><button class="danger" data-fault="1">Авария ЧРП 1</button><button class="danger" data-fault="2">Авария ЧРП 2</button></div></section><div class="notice">Нажмите на контактор или вводной автомат на схеме для ручного переключения.<br>Все команды проходят блокировки Б1–Б5.</div><section id="recovery" class="panel recovery" hidden></section></aside>
@@ -99,6 +171,8 @@ reset();
 setInterval(()=>{let updated=false;for(const m of motors){const s=source(m),mot=state.motor[m];if(s==='mains'){if(mot.speed!==1){mot.speed=1;updated=true;}}else if(s.startsWith('vfd')){const speed=state.vfd[s.slice(-1)].f/50;if(mot.speed!==speed){mot.speed=speed;updated=true;}}else if(mot.speed>0){mot.speed=Math.max(0,mot.speed-(mot.fastCoast?.02:.0015));if(!mot.speed){mot.release=null;mot.fastCoast=false;}updated=true;}}if(updated)render();},100);
 
 addEventListener('pointerdown',e=>{if(e.button!==0)return;const sw=e.target.closest('[data-switch]');if(!sw)return;e.preventDefault();manual(()=>sw.dataset.type==='q'?toggleQ(Number(sw.dataset.switch)):(state.k[sw.dataset.switch]?tryOpen:tryClose)(sw.dataset.switch));});
+
+setInterval(()=>{const c=document.getElementById('clock');if(c)c.textContent=new Date().toLocaleTimeString('ru-RU')},1000);
 </script>
 </body>
 </html>
